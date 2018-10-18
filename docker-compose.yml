@@ -6,7 +6,7 @@ services:
       container_name: blog_php_fpm
       working_dir: /usr/share/nginx/blog
       networks:
-        - ddtd_demo
+        - blog
       volumes:
           - ./:/usr/share/nginx/blog
 
@@ -15,7 +15,7 @@ services:
       container_name: blog_nginx
       working_dir: /usr/share/nginx/blog
       networks:
-        - ddtd_demo
+        - blog
       ports:
           - "8080:80"
       volumes:
@@ -26,11 +26,13 @@ services:
       image: mysql:5.7
       container_name: blog_mysql
       networks:
-        - ddtd_demo
+        - blog
       environment:
-          - MYSQL_ROOT_PASSWORD=password
-          - MYSQL_DATABASE=ddtd_demo
+        - MYSQL_DATABASE=blog
+        - MYSQL_ROOT_PASSWORD=password
+        - MYSQL_USER=blog
+        - MYSQL_PASSWORD=password
 
 networks:
-  ddtd_demo:
+  blog:
     driver: bridge
